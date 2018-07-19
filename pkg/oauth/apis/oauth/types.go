@@ -40,6 +40,9 @@ type OAuthAccessToken struct {
 	// CreationTimestamp, after which this token can no longer be used.
 	// The value is automatically incremented when the token is used.
 	InactivityTimeoutSeconds int32
+
+	//TODO: docs
+	IdentityMetadata string
 }
 
 // +genclient

@@ -92,3 +92,51 @@ type GroupList struct {
 	metav1.ListMeta
 	Items []Group
 }
+
+// +genclient
+// +genclient:nonNamespaced
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// TODO: Docs
+type IdentityMetadata struct {
+	metav1.TypeMeta
+	// Standard object's metadata.
+	metav1.ObjectMeta
+
+	// ExpiresIn is the seconds from CreationTime before this authentication expires
+	// Wired to TTLFunc in ETCD
+	ExpiresIn int64
+
+	// UserName is the user name associated with this authentication
+	UserName string
+
+	// UserUID is the unique UID associated with this authentication
+	UserUID string
+
+	// IdentityProviderName is the name of the IDP associated with this authentication
+	// Do we want this?
+	IdentityProviderName string
+
+	// IdentityProviderUserName uniquely identifies this particular user for this provider
+	// Do we want this?
+	IdentityProviderUserName string
+
+	// IdentityProviderGroups is the names of the groups the user is a member of for the given IDP
+	IdentityProviderGroups []string
+
+	// IdentityProviderExtra contains any additional information that the IDP thought was interesting
+	// Difference between this and normal extra which contains scopes?
+	IdentityProviderExtra map[string]OptionalNames
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// IdentityMetadataList is a collection of IdentityMetadata
+// TODO: Review protobuf best practices
+type IdentityMetadataList struct {
+	metav1.TypeMeta
+	// Standard object's metadata.
+	metav1.ListMeta
+	// Items is the list of IdentityMetadata
+	Items []IdentityMetadata
+}
