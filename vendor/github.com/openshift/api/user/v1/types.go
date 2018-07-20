@@ -133,3 +133,51 @@ type GroupList struct {
 	// Items is the list of groups
 	Items []Group `json:"items" protobuf:"bytes,2,rep,name=items"`
 }
+
+// +genclient
+// +genclient:nonNamespaced
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// TODO: Docs
+type IdentityMetadata struct {
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	// ExpiresIn is the seconds from CreationTime before this authentication expires
+	// Wired to TTLFunc in ETCD
+	ExpiresIn int64 `json:"expiresIn" protobuf:"bytes,2,req,name=expiresIn"`
+
+	// UserName is the user name associated with this authentication
+	UserName string `json:"userName" protobuf:"bytes,3,req,name=userName"`
+
+	// UserUID is the unique UID associated with this authentication
+	UserUID string `json:"userUID" protobuf:"bytes,4,req,name=userUID"`
+
+	// IdentityProviderName is the name of the IDP associated with this authentication
+	// Do we want this?
+	IdentityProviderName string `json:"identityProviderName" protobuf:"bytes,5,req,name=identityProviderName"`
+
+	// IdentityProviderUserName uniquely identifies this particular user for this provider
+	// Do we want this?
+	IdentityProviderUserName string `json:"identityProviderUsername" protobuf:"bytes,6,req,name=identityProviderUsername"`
+
+	// IdentityProviderGroups is the names of the groups the user is a member of for the given IDP
+	IdentityProviderGroups []string `json:"identityProviderGroups" protobuf:"bytes,7,opt,name=identityProviderGroups"`
+
+	// IdentityProviderExtra contains any additional information that the IDP thought was interesting
+	// Difference between this and normal extra which contains scopes?
+	IdentityProviderExtra map[string]OptionalNames `json:"identityProviderExtra,omitempty" protobuf:"bytes,8,rep,name=identityProviderExtra"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// IdentityMetadataList is a collection of IdentityMetadata
+// TODO: Review protobuf best practices
+type IdentityMetadataList struct {
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	// Items is the list of IdentityMetadata
+	Items []IdentityMetadata `json:"items" protobuf:"bytes,2,rep,name=items"`
+}

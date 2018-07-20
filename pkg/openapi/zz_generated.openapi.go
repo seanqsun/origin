@@ -264,6 +264,8 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"github.com/openshift/api/user/v1.GroupList":                                                        schema_openshift_api_user_v1_GroupList(ref),
 		"github.com/openshift/api/user/v1.Identity":                                                         schema_openshift_api_user_v1_Identity(ref),
 		"github.com/openshift/api/user/v1.IdentityList":                                                     schema_openshift_api_user_v1_IdentityList(ref),
+		"github.com/openshift/api/user/v1.IdentityMetadata":                                                 schema_openshift_api_user_v1_IdentityMetadata(ref),
+		"github.com/openshift/api/user/v1.IdentityMetadataList":                                             schema_openshift_api_user_v1_IdentityMetadataList(ref),
 		"github.com/openshift/api/user/v1.User":                                                             schema_openshift_api_user_v1_User(ref),
 		"github.com/openshift/api/user/v1.UserIdentityMapping":                                              schema_openshift_api_user_v1_UserIdentityMapping(ref),
 		"github.com/openshift/api/user/v1.UserList":                                                         schema_openshift_api_user_v1_UserList(ref),
@@ -8987,6 +8989,12 @@ func schema_openshift_api_oauth_v1_OAuthAccessToken(ref common.ReferenceCallback
 							Format:      "int32",
 						},
 					},
+					"identityMetadata": {
+						SchemaProps: spec.SchemaProps{
+							Type:   []string{"string"},
+							Format: "",
+						},
+					},
 				},
 			},
 		},
@@ -13063,6 +13071,158 @@ func schema_openshift_api_user_v1_IdentityList(ref common.ReferenceCallback) com
 		},
 		Dependencies: []string{
 			"github.com/openshift/api/user/v1.Identity", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+	}
+}
+
+func schema_openshift_api_user_v1_IdentityMetadata(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Standard object's metadata.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"),
+						},
+					},
+					"expiresIn": {
+						SchemaProps: spec.SchemaProps{
+							Description: "ExpiresIn is the seconds from CreationTime before this authentication expires Wired to TTLFunc in ETCD",
+							Type:        []string{"integer"},
+							Format:      "int64",
+						},
+					},
+					"userName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UserName is the user name associated with this authentication",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"userUID": {
+						SchemaProps: spec.SchemaProps{
+							Description: "UserUID is the unique UID associated with this authentication",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"identityProviderName": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IdentityProviderName is the name of the IDP associated with this authentication Do we want this?",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"identityProviderUsername": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IdentityProviderUserName uniquely identifies this particular user for this provider Do we want this?",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"identityProviderGroups": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IdentityProviderGroups is the names of the groups the user is a member of for the given IDP",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type:   []string{"string"},
+										Format: "",
+									},
+								},
+							},
+						},
+					},
+					"identityProviderExtra": {
+						SchemaProps: spec.SchemaProps{
+							Description: "IdentityProviderExtra contains any additional information that the IDP thought was interesting Difference between this and normal extra which contains scopes?",
+							Type:        []string{"object"},
+							AdditionalProperties: &spec.SchemaOrBool{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Type: []string{"array"},
+										Items: &spec.SchemaOrArray{
+											Schema: &spec.Schema{
+												SchemaProps: spec.SchemaProps{
+													Type:   []string{"string"},
+													Format: "",
+												},
+											},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"expiresIn", "userName", "userUID", "identityProviderName", "identityProviderUsername", "identityProviderGroups"},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+	}
+}
+
+func schema_openshift_api_user_v1_IdentityMetadataList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Description: "IdentityMetadataList is a collection of IdentityMetadata",
+				Properties: map[string]spec.Schema{
+					"kind": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#types-kinds",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"apiVersion": {
+						SchemaProps: spec.SchemaProps{
+							Description: "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/api-conventions.md#resources",
+							Type:        []string{"string"},
+							Format:      "",
+						},
+					},
+					"metadata": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Standard object's metadata.",
+							Ref:         ref("k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"),
+						},
+					},
+					"items": {
+						SchemaProps: spec.SchemaProps{
+							Description: "Items is the list of IdentityMetadata",
+							Type:        []string{"array"},
+							Items: &spec.SchemaOrArray{
+								Schema: &spec.Schema{
+									SchemaProps: spec.SchemaProps{
+										Ref: ref("github.com/openshift/api/user/v1.IdentityMetadata"),
+									},
+								},
+							},
+						},
+					},
+				},
+				Required: []string{"items"},
+			},
+		},
+		Dependencies: []string{
+			"github.com/openshift/api/user/v1.IdentityMetadata", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 

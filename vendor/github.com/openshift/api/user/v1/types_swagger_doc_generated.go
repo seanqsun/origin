@@ -54,6 +54,31 @@ func (IdentityList) SwaggerDoc() map[string]string {
 	return map_IdentityList
 }
 
+var map_IdentityMetadata = map[string]string{
+	"metadata":                 "Standard object's metadata.",
+	"expiresIn":                "ExpiresIn is the seconds from CreationTime before this authentication expires Wired to TTLFunc in ETCD",
+	"userName":                 "UserName is the user name associated with this authentication",
+	"userUID":                  "UserUID is the unique UID associated with this authentication",
+	"identityProviderName":     "IdentityProviderName is the name of the IDP associated with this authentication Do we want this?",
+	"identityProviderUsername": "IdentityProviderUserName uniquely identifies this particular user for this provider Do we want this?",
+	"identityProviderGroups":   "IdentityProviderGroups is the names of the groups the user is a member of for the given IDP",
+	"identityProviderExtra":    "IdentityProviderExtra contains any additional information that the IDP thought was interesting Difference between this and normal extra which contains scopes?",
+}
+
+func (IdentityMetadata) SwaggerDoc() map[string]string {
+	return map_IdentityMetadata
+}
+
+var map_IdentityMetadataList = map[string]string{
+	"":         "IdentityMetadataList is a collection of IdentityMetadata",
+	"metadata": "Standard object's metadata.",
+	"items":    "Items is the list of IdentityMetadata",
+}
+
+func (IdentityMetadataList) SwaggerDoc() map[string]string {
+	return map_IdentityMetadataList
+}
+
 var map_User = map[string]string{
 	"":           "Upon log in, every user of the system receives a User and Identity resource. Administrators may directly manipulate the attributes of the users for their own tracking, or set groups via the API. The user name is unique and is chosen based on the value provided by the identity provider - if a user already exists with the incoming name, the user name may have a number appended to it depending on the configuration of the system.",
 	"metadata":   "Standard object's metadata.",

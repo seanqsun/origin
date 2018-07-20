@@ -28782,6 +28782,9 @@
       "type": "integer",
       "format": "int32",
       "description": "InactivityTimeoutSeconds is the value in seconds, from the CreationTimestamp, after which this token can no longer be used. The value is automatically incremented when the token is used."
+     },
+     "identityMetadata": {
+      "type": "string"
      }
     }
    },

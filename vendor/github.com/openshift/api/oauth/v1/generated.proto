@@ -59,6 +59,9 @@ message OAuthAccessToken {
   // CreationTimestamp, after which this token can no longer be used.
   // The value is automatically incremented when the token is used.
   optional int32 inactivityTimeoutSeconds = 10;
+
+  // TODO: docs
+  optional string identityMetadata = 11;
 }
 
 // OAuthAccessTokenList is a collection of OAuth access tokens

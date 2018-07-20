@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 hash: a2c79e128028aab55833eb434e44e9c3a61f438d0bbc35e0e01054c43cca58be
 updated: 2018-07-26T22:16:26.706964018-04:00
+=======
+hash: ce0977e2cafaefdc32c59a9c4f9e546836c6eb2a49b212af6cf2433873037680
+updated: 2018-07-20T16:28:05.338928797-04:00
+>>>>>>> Generated IdentityMetaData API
 imports:
 - name: bitbucket.org/ww/goautoneg
   version: 75cd24fc2f2c2a2088577d12123ddee5f54e0675
@@ -94,7 +99,7 @@ imports:
   subpackages:
   - quantile
 - name: github.com/blang/semver
-  version: b38d23b8782a487059e8fc8773e9a5b228a77cb6
+  version: c5e971dbed7850a93c23aa6ff69db5771d8e23b3
 - name: github.com/certifi/gocertifi
   version: deb3ae2ef2610fde3330947281941c562861188b
 - name: github.com/chai2010/gettext-go
@@ -819,7 +824,12 @@ imports:
   - go-selinux
   - go-selinux/label
 - name: github.com/openshift/api
+<<<<<<< HEAD
   version: 4879e7baf41e5b94e8a187366f6a45ae6642fbe4
+=======
+  version: 174795dc3921b6ee4b41bec07ed15c4ab00c793f
+  repo: https://github.com/seanqsun/api.git
+>>>>>>> Generated IdentityMetaData API
   subpackages:
   - apps
   - apps/v1
@@ -857,7 +867,12 @@ imports:
   - webconsole
   - webconsole/v1
 - name: github.com/openshift/client-go
+<<<<<<< HEAD
   version: 5b198a036f098f34fbf0c42768382d80708cd2a9
+=======
+  version: b22949ca0eae046da7611d0d20c8089dcec212d6
+  repo: https://github.com/seanqsun/client-go.git
+>>>>>>> Generated IdentityMetaData API
   subpackages:
   - apps/clientset/versioned
   - apps/clientset/versioned/fake
@@ -1859,7 +1874,11 @@ imports:
   - pkg/util/proto/testing
   - pkg/util/proto/validation
 - name: k8s.io/kubernetes
+<<<<<<< HEAD
   version: d8c60b6ee690566052d6d19692c935c3aeffa159
+=======
+  version: c30bb1b8e7a8f282ed01a9abe4581ebac1b516b0
+>>>>>>> Generated IdentityMetaData API
   repo: https://github.com/openshift/kubernetes.git
   subpackages:
   - cmd/controller-manager/app

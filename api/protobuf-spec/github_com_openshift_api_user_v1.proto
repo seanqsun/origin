@@ -63,6 +63,47 @@ message IdentityList {
   repeated Identity items = 2;
 }
 
+// TODO: Docs
+message IdentityMetadata {
+  // Standard object's metadata.
+  optional k8s.io.apimachinery.pkg.apis.meta.v1.ObjectMeta metadata = 1;
+
+  // ExpiresIn is the seconds from CreationTime before this authentication expires
+  // Wired to TTLFunc in ETCD
+  optional int64 expiresIn = 2;
+
+  // UserName is the user name associated with this authentication
+  optional string userName = 3;
+
+  // UserUID is the unique UID associated with this authentication
+  optional string userUID = 4;
+
+  // IdentityProviderName is the name of the IDP associated with this authentication
+  // Do we want this?
+  optional string identityProviderName = 5;
+
+  // IdentityProviderUserName uniquely identifies this particular user for this provider
+  // Do we want this?
+  optional string identityProviderUsername = 6;
+
+  // IdentityProviderGroups is the names of the groups the user is a member of for the given IDP
+  repeated string identityProviderGroups = 7;
+
+  // IdentityProviderExtra contains any additional information that the IDP thought was interesting
+  // Difference between this and normal extra which contains scopes?
+  map<string, OptionalNames> identityProviderExtra = 8;
+}
+
+// IdentityMetadataList is a collection of IdentityMetadata
+// TODO: Review protobuf best practices
+message IdentityMetadataList {
+  // Standard object's metadata.
+  optional k8s.io.apimachinery.pkg.apis.meta.v1.ListMeta metadata = 1;
+
+  // Items is the list of IdentityMetadata
+  repeated IdentityMetadata items = 2;
+}
+
 // OptionalNames is an array that may also be left nil to distinguish between set and unset.
 // +protobuf.nullable=true
 // +protobuf.options.(gogoproto.goproto_stringer)=false

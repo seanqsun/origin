@@ -42,6 +42,9 @@ type OAuthAccessToken struct {
 	// CreationTimestamp, after which this token can no longer be used.
 	// The value is automatically incremented when the token is used.
 	InactivityTimeoutSeconds int32 `json:"inactivityTimeoutSeconds,omitempty" protobuf:"varint,10,opt,name=inactivityTimeoutSeconds"`
+
+	// TODO: docs
+	IdentityMetadata string `json:"identityMetadata,omitempty" protobuf:"bytes,11,opt,name=identityMetadata"`
 }
 
 // +genclient

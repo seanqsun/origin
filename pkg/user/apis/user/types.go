@@ -1,6 +1,7 @@
 package user
 
 import (
+	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/kubernetes/pkg/apis/core"
 )
@@ -92,6 +93,16 @@ type GroupList struct {
 	metav1.ListMeta
 	Items []Group
 }
+
+// OptionalNames is an array that may also be left nil to distinguish between set and unset
+// +protobuf.nullable=true
+// +protobuf.options.(gogoproto.goproto_stringer)=false
+type OptionalNames []string
+
+func (t OptionalNames) String() string{
+	return fmt.Sprintf("%v", []string(t))
+}
+
 
 // +genclient
 // +genclient:nonNamespaced

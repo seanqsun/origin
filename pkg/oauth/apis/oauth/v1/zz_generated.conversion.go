@@ -83,6 +83,7 @@ func autoConvert_v1_OAuthAccessToken_To_oauth_OAuthAccessToken(in *v1.OAuthAcces
 	out.AuthorizeToken = in.AuthorizeToken
 	out.RefreshToken = in.RefreshToken
 	out.InactivityTimeoutSeconds = in.InactivityTimeoutSeconds
+	out.IdentityMetadata = in.IdentityMetadata
 	return nil
 }
 
@@ -102,6 +103,7 @@ func autoConvert_oauth_OAuthAccessToken_To_v1_OAuthAccessToken(in *oauth.OAuthAc
 	out.AuthorizeToken = in.AuthorizeToken
 	out.RefreshToken = in.RefreshToken
 	out.InactivityTimeoutSeconds = in.InactivityTimeoutSeconds
+	out.IdentityMetadata = in.IdentityMetadata
 	return nil
 }
 
