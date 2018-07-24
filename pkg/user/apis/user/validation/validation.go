@@ -198,3 +198,36 @@ func ValidateUserIdentityMappingUpdate(mapping *userapi.UserIdentityMapping, old
 	allErrs = append(allErrs, ValidateUserIdentityMapping(mapping)...)
 	return allErrs
 }
+
+func ValidateIdentityMetadata(identityMetadata *userapi.IdentityMetadata) field.ErrorList {
+	fldPath := field.NewPath("")
+	allErrs := kvalidation.ValidateObjectMeta(&identity.ObjectMeta, false, ValidateIdentityName, field.NewPath("metadata"))
+
+	if identityMetadata.ExpiresIn <= 0 {
+		allErrs = append(allErrs, field.Required(fldPath.Child("expiresIn"), "expiresIn must be greater than zero"))
+	}
+	if len(identityMetadata.UserName) == 0 {
+		allErrs = append(allErrs, field.Required(fldPath.Child("username"), "username must be specified"))
+	}
+	if len(identityMetadata.UserUID) == 0 {
+		allErrs = append(allErrs, field.Required(fldPath.Child("userUID"), "userUID must be specified"))
+	}
+	if len(identityMetadata.IdentityProviderName) == 0 { //TODO change to identityName
+		allErrs = append(allErrs, field.Required(fldPath.Child("identityName"), "identityName must be specified"))
+	}
+	return allErrs
+}
+
+func ValidateIdentityMetadataUpdate(obj, old *userapi.IdentityMetadata) field.ErrorList {
+	allErrs := kvalidation.ValidateObjectMetaUpdate(&obj.ObjectMeta, &old.ObjectMeta, field.NewPath("metadata"))
+
+	if obj.ExpiresIn != old.ExpiresIn && obj.ExpiresIn != 0 {
+		allErrs = append(allErrs, field.Invalid(fldPath.Child("expiresIn"), "expiresIn must stay the same or be zero "))
+	}
+
+	copied := *old
+	copied.ObjectMeta = obj.ObjectMeta
+	// allow only ExpiresIn to be changed
+	copied.ExpiresIn = obj.ExpiresIn
+	return append(allErrs, validation.ValidateImmutableField(obj, &copied, field.NewPath(""))...)
+}

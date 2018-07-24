@@ -34,7 +34,7 @@ done
 #  "github.com/jteeuwen/go-bindata/go-bindata"
 #)
 
- glide update --strip-vendor
+glide update --strip-vendor
 
 # recreate symlinks after vendoring
 for pkg in vendor/k8s.io/kubernetes/staging/src/k8s.io/*; do
