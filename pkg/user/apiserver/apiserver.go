@@ -13,6 +13,7 @@ import (
 	userclient "github.com/openshift/client-go/user/clientset/versioned"
 	groupetcd "github.com/openshift/origin/pkg/user/registry/group/etcd"
 	identityetcd "github.com/openshift/origin/pkg/user/registry/identity/etcd"
+	identitymetadata "github.com/openshift/origin/pkg/user/registry/identitymetadata"
 	useretcd "github.com/openshift/origin/pkg/user/registry/user/etcd"
 	"github.com/openshift/origin/pkg/user/registry/useridentitymapping"
 )
@@ -107,11 +108,16 @@ func (c *completedConfig) newV1RESTStorage() (map[string]rest.Storage, error) {
 	if err != nil {
 		return nil, err
 	}
+	identityMetadataStorage, err := identitymetadata.NewRest(c.GenericConfig.RestOptionsGetter)
+	if err != nil {
+		return nil, err
+	}
 
 	v1Storage := map[string]rest.Storage{}
 	v1Storage["users"] = userStorage
 	v1Storage["groups"] = groupStorage
 	v1Storage["identities"] = identityStorage
 	v1Storage["userIdentityMappings"] = userIdentityMappingStorage
+	v1Storage["identityMetadatas"] = identityMetadataStorage
 	return v1Storage, nil
 }
